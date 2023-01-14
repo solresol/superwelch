@@ -123,7 +123,7 @@ welch_said_success_when_actually_failed = confusion_matrix[0][1]
 welch_said_failed_when_actually_succeeded = confusion_matrix[1][0]
 welch_true_negatives = confusion_matrix[1][1]
 
-rfc = sklearn.ensemble.RandomForestClassifier(random_state=args.rfc_seed)
+rfc = sklearn.ensemble.RandomForestClassifier(random_state=args.rfc_seed, n_jobs=-1)
 rfc.fit(training_experiments_df, training_targets)
 rfc_answers = rfc.predict(testing_experiments_df)
 rfc_probs = rfc.predict_proba(testing_experiments_df)[:, 1]
