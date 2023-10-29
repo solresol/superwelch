@@ -157,19 +157,23 @@ while True:
             
         control_values = []
         experiment_values = []
-        bmap_df = pandas.DataFrame()
         for field, value in zip(control_columns + experiment_columns, row):
             if field.startswith('control'):
                 control_values.append(value)
-                bmap_df[field] = [value]
             elif field.startswith("experimental"):
                 experiment_values.append(value)
-                bmap_df[field] = [value]                
         welch_outcome = scipy.stats.ttest_ind(control_values, experiment_values, equal_var=False)
         welch_pretty_result = "experiment succeeded" if welch_outcome.pvalue < 0.05 else "experiment failed"
         welch_result = 1 if welch_outcome.pvalue < 0.05 else 0
         print_formatted_text(FormattedText([('fg:green', f"Welch t-test reported: {welch_pretty_result} with p-value {welch_outcome.pvalue}")]))
-        prediction = model.predict(bmap_df)[0]
+
+        bmap_df = pandas.DataFrame()
+        for (i,c) in enumerate(sorted(control_values)):
+            bmap_df[f"control{i+1}"] = [c]
+        for (i,x) in enumerate(sorted(experiment_values)):
+            bmap_df[f"experimental{i+1}"] = [x]
+
+        prediction = int(model.predict(bmap_df)[0])
         probs = model.predict_proba(bmap_df)[0]
         model_pretty_result = "experiment succeeded" if prediction == 1 else "experiment failed"
         print_formatted_text(FormattedText([('fg:green', f"BMAP3 test reported: {model_pretty_result} with probability of it being successful = {probs[1]}")]))
