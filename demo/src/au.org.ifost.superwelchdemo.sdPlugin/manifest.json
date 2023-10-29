@@ -1,0 +1,103 @@
+{
+  "Actions": [
+    {
+      "UUID": "au.org.ifost.superwelchdemo.lolly-jump",
+      "Icon": "assets/setkeyimage/action_icon",
+      "Name": "Lolly jump",
+      "States": [
+	{
+	  "Image": "assets/setkeyimage/key_icon"
+	}
+      ],
+      "SupportedInMultiActions": true,
+      "Controllers": [
+	"Keypad"
+      ],
+      "Tooltip": "Jumps to WxBx profile for lolly rewards",
+      "UserTitleEnabled": true
+  },
+    {
+      "UUID": "au.org.ifost.superwelchdemo.test-results",
+      "Icon": "assets/setkeyimage/action_icon",
+      "Name": "Test results",
+      "States": [
+	{
+	  "Image": "assets/setkeyimage/key_icon"
+	}
+      ],
+      "SupportedInMultiActions": true,
+      "Controllers": [
+	"Keypad"
+      ],
+      "Tooltip": "Jump to the profile that reflects the status of the most recent experiment",
+      "UserTitleEnabled": true
+  }      
+  ],
+  "Author": "Greg Baker",
+  "CodePath": "run.sh",
+  "Description": "Play the superwelch game",
+  "Icon": "assets/plugin_icon",
+  "Name": "Superwelch Demo",
+  "Version": "0.0.1",
+  "SDKVersion": 2,
+    "OS": [
+	{
+	"Platform": "mac",
+	"MinimumVersion": "10.14"
+    },
+	{
+	"Platform": "windows",
+	"MinimumVersion": "10"
+    }
+    ],
+    "Software": {
+      "MinimumVersion": "6"
+    },
+    "Category": "Superwelch",
+    "CategoryIcon": "assets/category_icon",
+    "CodePathMac": "run.sh",
+    "CodePathWin": "run.bat",
+    "URL": "https://github.com/solresol/superwelch/demo",
+    "Profiles": [
+	{
+	"Name": "WNBN",
+	"DeviceType": 2,
+	"Readonly": true
+    },
+	{
+	"Name": "WNBY",
+	"DeviceType": 2,
+	"Readonly": true
+    },
+	{
+	"Name": "WYBN",
+	"DeviceType": 2,
+	"Readonly": true
+    },
+	{
+	"Name": "WYBY",
+	"DeviceType": 2,
+	"Readonly": true
+    },
+	{
+	"Name": "WCBC",
+	"DeviceType": 2,
+	"Readonly": true
+    },
+	{
+	"Name": "WCBW",
+	"DeviceType": 2,
+	"Readonly": true
+    },
+	{
+	"Name": "WWBC",
+	"DeviceType": 2,
+	"Readonly": true
+    },
+	{
+	"Name": "WWBw",
+	"DeviceType": 2,
+	"Readonly": true
+    }	
+    ]
+}

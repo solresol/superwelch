@@ -1,0 +1,92 @@
+#!/usr/bin/env python3
+
+import requests
+from streamdeck_sdk import (
+    StreamDeck,
+    Action,
+    events_received_objs,
+    events_sent_objs,
+    image_bytes_to_base64,
+    logger,
+)
+import logging
+import os
+import sqlite3
+
+class JumpToLollyPage(Action):
+    UUID = "au.org.ifost.superwelchdemo.lolly-jump"
+
+    def on_key_down(self, obj: events_received_objs.KeyDown):
+        cursor = conn.cursor()
+        cursor.execute("select real_experiment_id from current_experiment")
+        row = cursor.fetchone()
+        if row is None:
+            logger.warn("Cannot find the current experiment ID")
+            # Hmm, what to switch to? Ideally, the bmap demo starter?
+            cursor.close()
+            return
+        current_experiment_id = row[0]
+        cursor.execute("select welch_ttest_result, bmap3_result,ground_truth from real_experiments where real_experiment_id = ?", [current_experiment_id])
+        row = cursor.fetchone()
+        if row is None:
+            logger.warn(f"Cannot find a corresponding real experiment to {current_experiment_id}")
+            cursor.close()
+            return
+        welch_result = row[0]
+        bmap3_result = row[1]
+        ground_truth = row[2]
+        welch_profile = "C" if welch_result == ground_truth else "W"
+        bmap3_profile = "C" if bmap3_result == ground_truth else "W"
+        profile_name = f"W{welch_profile}B{bmap3_profile}"
+        logger.info(f"{welch_result=}, {bmap3_result=}, {ground_truth=}")
+        logger.info(f"Switching to profile {profile_name}")
+        self.switch_to_profile(device=obj.device, profile=profile_name)
+        cursor.close()
+
+
+class JumpToTestResultProfile(Action):
+    UUID = "au.org.ifost.superwelchdemo.test-results"
+
+    def on_key_down(self, obj: events_received_objs.KeyDown):
+        cursor = conn.cursor()
+        cursor.execute("select real_experiment_id from current_experiment")
+        row = cursor.fetchone()
+        if row is None:
+            logger.warn("Cannot find the current experiment ID")
+            # Hmm, what to switch to? Ideally, the bmap demo starter?
+            cursor.close()
+            return
+        current_experiment_id = row[0]
+        cursor.execute("select welch_ttest_result, bmap3_result from real_experiments where real_experiment_id = ?", [current_experiment_id])
+        row = cursor.fetchone()
+        if row is None:
+            logger.warn(f"Cannot find a corresponding real experiment to {current_experiment_id}")
+            cursor.close()
+            return
+        welch_result = row[0]
+        bmap3_result = row[1]
+        logger.info(f"{welch_result=}")
+        logger.info(f"{bmap3_result=}")
+
+        welch_profile = "Y" if welch_result == 1 else "N"
+        bmap3_profile = "Y" if bmap3_result == 1 else "N"
+        profile_name = f"W{welch_profile}B{bmap3_profile}"
+        logger.info(f"Switching to {profile_name}")
+        
+        self.switch_to_profile(device=obj.device, profile=profile_name)
+        cursor.close()
+
+if __name__ == '__main__':
+    session_file = os.path.expanduser("~/.bmap-demo-session.sqlite")
+    logger.info(session_file)
+    conn = sqlite3.connect(session_file)
+
+    StreamDeck(
+        actions=[
+            JumpToTestResultProfile(),
+            JumpToLollyPage()
+        ],
+        log_file='/tmp/demo.log',
+        log_level=logging.DEBUG,
+        log_backup_count=1,
+    ).run()
