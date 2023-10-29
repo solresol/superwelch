@@ -36,7 +36,7 @@ select_args = ", ".join(control_columns + experiment_columns)
 create_defs = [f"{x} float" for x in (control_columns + experiment_columns)]
 columns = "\n, ".join(create_defs)
 
-word_completions = ['new', 'test'] + [f"{x}=" for x in (control_columns + experiment_columns) ]
+word_completions = ['new', 'test', 'failed', 'succeeded'] + [f"{x}=" for x in (control_columns + experiment_columns) ]
 
 model_conn.close()
 
@@ -51,7 +51,6 @@ cursor.execute(f"""create table if not exists real_experiments (
   experiment_evaluated timestamp default current_timestamp,
   welch_ttest_result bool,
   welch_ttest_pvalue float,
-  welch_ttest_probability float,
   bmap3_result bool,
   bmap3_pvalue float,
   ground_truth bool
@@ -154,7 +153,7 @@ while True:
         row = cursor.fetchone()
         if row is None:
             sys.exit("Database integrity error")
-            
+
         control_values = []
         experiment_values = []
         for field, value in zip(control_columns + experiment_columns, row):
@@ -177,7 +176,27 @@ while True:
         probs = model.predict_proba(bmap_df)[0]
         model_pretty_result = "experiment succeeded" if prediction == 1 else "experiment failed"
         print_formatted_text(FormattedText([('fg:green', f"BMAP3 test reported: {model_pretty_result} with probability of it being successful = {probs[1]}")]))
+        cursor.execute("update real_experiments set welch_ttest_result = ?, welch_ttest_pvalue = ?, bmap3_result = ?, bmap3_pvalue = ? where real_experiment_id = ?",
+                       [welch_result, welch_outcome.pvalue, prediction, probs[1], current_experiment_id])
+        conn.commit()
         continue
+
+    if current_experiment_id is not None and user_input.lower().startswith("fail"):
+        cursor.execute("update real_experiments set ground_truth = false where real_experiment_id = ?",
+                       [current_experiment_id])
+        conn.commit()
+        print_formatted_text(FormattedText([('fg:blue','Experiment marked as failed')]))
+        continue
+
+    if current_experiment_id is not None and user_input.lower().startswith("succ"):
+        cursor.execute("update real_experiments set ground_truth = true where real_experiment_id = ?",
+                       [current_experiment_id])
+        conn.commit()
+        print_formatted_text(FormattedText([('fg:blue','Experiment marked as succeeded')]))
+        continue
+
+
+
     print_formatted_text(FormattedText([('fg:red', f"Command {user_input} was not understood")]))
     #print_formatted_text(FormattedText([('bold',user_input)]))
     # print_formatted_text(FormattedText([('fg:black',"Processing end reason: "), ('fg:yellow', finish_reason)]))
