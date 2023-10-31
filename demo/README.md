@@ -8,7 +8,11 @@ Requires an Elgate Stream Deck XL, otherwise it's really boring.
 
 2. `./synthesize.py --sql ~/.bmap-demo-model.sqlite --progress`
 
+If you want to fake it to look better, use `./dice-synthesize.py`
+
 3. `./bmap3_train.py --sql  ~/.bmap-demo-model.sqlite`
+
+BMAP1 does better on the dice game. `./bmap1_train.py`
 
 4. Make sure the stream deck is configured. There are backups of:
   

@@ -3,7 +3,7 @@
     {
       "UUID": "au.org.ifost.superwelchdemo.lolly-jump",
       "Icon": "assets/setkeyimage/action_icon",
-      "Name": "Lolly jump",
+      "Name": "Lolly jump (deprecated)",
       "States": [
 	{
 	  "Image": "assets/setkeyimage/key_icon"
@@ -19,7 +19,7 @@
     {
       "UUID": "au.org.ifost.superwelchdemo.test-results",
       "Icon": "assets/setkeyimage/action_icon",
-      "Name": "Test results",
+      "Name": "Test results (deprecated)",
       "States": [
 	{
 	  "Image": "assets/setkeyimage/key_icon"
@@ -30,6 +30,215 @@
 	"Keypad"
       ],
       "Tooltip": "Jump to the profile that reflects the status of the most recent experiment",
+      "UserTitleEnabled": true
+  },
+
+    {
+      "UUID": "au.org.ifost.superwelchdemo.what-welch-thinks",
+      "Icon": "assets/setkeyimage/action_icon",
+      "Name": "What Welch Thinks",
+      "States": [
+	  {
+	  "Name": "d6only",
+	  "Image": "assets/d6-only-720x720",
+	  "ShowTitle": false,
+	  "Title": ""
+      },
+	  {
+	  "Name": "d6-d8-only",
+	  "Image": "assets/d6-d8-720x720",
+	  "ShowTitle": false,
+	  "Title": ""
+      }
+      ],
+      "SupportedInMultiActions": true,
+      "Controllers": [
+	"Keypad"
+      ],
+      "Tooltip": "Shows a smiley if Welch thinks experiment succeeded",
+      "UserTitleEnabled": true
+  },
+
+    {
+      "UUID": "au.org.ifost.superwelchdemo.what-bmap1-thinks",
+      "Icon": "assets/setkeyimage/action_icon",
+      "Name": "What BMAP1 thinks",
+      "States": [
+	  	  {
+	  "Name": "d6only",
+	  "Image": "assets/d6-only-720x720",
+	  "ShowTitle": false,
+	  "Title": ""
+      },
+	  {
+	  "Name": "d6-d8-only",
+	  "Image": "assets/d6-d8-720x720",
+	  "ShowTitle": false,
+	  "Title": ""
+      }
+      ],
+      "SupportedInMultiActions": true,
+      "Controllers": [
+	"Keypad"
+      ],
+      "Tooltip": "Shows a smiley if BMAP1 thinks experiment succeeded",
+      "UserTitleEnabled": true
+  },            
+    {
+      "UUID": "au.org.ifost.superwelchdemo.what-bmap3-thinks",
+      "Icon": "assets/setkeyimage/action_icon",
+      "Name": "What BMAP3 thinks",
+      "States": [ {
+	  "Name": "d6only",
+	  "Image": "assets/d6-only-720x720",
+	  "ShowTitle": false,
+	  "Title": ""
+      },
+	  {
+	  "Name": "d6-d8-only",
+	  "Image": "assets/d6-d8-720x720",
+	  "ShowTitle": false,
+	  "Title": ""
+      }
+      ],
+      "SupportedInMultiActions": true,
+      "Controllers": [
+	"Keypad"
+      ],
+      "Tooltip": "Shows a smiley if BMAP3 thinks experiment succeeded",
+      "UserTitleEnabled": true
+  },
+
+    {
+      "UUID": "au.org.ifost.superwelchdemo.eat-count-vs-welch-bmap1",
+      "Icon": "assets/setkeyimage/action_icon",
+      "Name": "Eat Count vs Welch and BMAP1",
+      "States": [
+	  {
+	  "Name": "hungry",
+	  "Image": "assets/hungry",
+	  "ShowTitle": false,
+	  "Title": ""
+      },
+	  {
+	  "Name": "munchymunchy",
+	  "Image": "assets/lolly-tick-zoomed",
+	  "ShowTitle": false,
+	  "Title": ""
+      }
+      ],
+      "SupportedInMultiActions": true,
+      "Controllers": [
+	"Keypad"
+      ],
+      "Tooltip": "How many lollies you can eat (Welch + BMAP1)",
+      "UserTitleEnabled": true
+  },      
+
+
+    {
+      "UUID": "au.org.ifost.superwelchdemo.eat-count-vs-welch-bmap3",
+      "Icon": "assets/setkeyimage/action_icon",
+      "Name": "Eath Count vs Welch and BMAP3",
+      "States": [
+	  {
+	  "Name": "hungry",
+	  "Image": "assets/hungry",
+	  "ShowTitle": false,
+	  "Title": ""
+      },
+	  {
+	  "Name": "munchymunchy",
+	  "Image": "assets/lolly-tick-zoomed",
+	  "ShowTitle": false,
+	  "Title": ""
+      }
+      ],
+      "SupportedInMultiActions": true,
+      "Controllers": [
+	"Keypad"
+      ],
+      "Tooltip": "How many lollies you can eat (Welch + BMAP3)",
+      "UserTitleEnabled": true
+  },      
+      
+
+    {
+      "UUID": "au.org.ifost.superwelchdemo.welch-count",
+      "Icon": "assets/setkeyimage/action_icon",
+      "Name": "Welch correct count",
+      "States": [
+	  {
+	  "Name": "hungry",
+	  "Image": "assets/hungry",
+	  "ShowTitle": false,
+	  "Title": ""
+      },
+	  {
+	  "Name": "munchymunchy",
+	  "Image": "assets/lolly-tick-zoomed",
+	  "ShowTitle": false,
+	  "Title": ""
+      }
+      ],
+      "SupportedInMultiActions": true,
+      "Controllers": [
+	"Keypad"
+      ],
+      "Tooltip": "How many Welch got right (0 or 1)",
+      "UserTitleEnabled": true
+  },
+
+
+    {
+      "UUID": "au.org.ifost.superwelchdemo.bmap1-count",
+      "Icon": "assets/setkeyimage/action_icon",
+      "Name": "BMAP1 correct count",
+      "States": [
+	  {
+	  "Name": "hungry",
+	  "Image": "assets/hungry",
+	  "ShowTitle": false,
+	  "Title": ""
+      },
+	  {
+	  "Name": "munchymunchy",
+	  "Image": "assets/lolly-tick-zoomed",
+	  "ShowTitle": false,
+	  "Title": ""
+      }
+      ],
+      "SupportedInMultiActions": true,
+      "Controllers": [
+	"Keypad"
+      ],
+      "Tooltip": "How many BMAP1 got right (0 or 1)",
+      "UserTitleEnabled": true
+  },
+
+    {
+      "UUID": "au.org.ifost.superwelchdemo.bmap3-count",
+      "Icon": "assets/setkeyimage/action_icon",
+      "Name": "BMAP3 correct count",
+      "States": [
+	  {
+	  "Name": "hungry",
+	  "Image": "assets/hungry",
+	  "ShowTitle": false,
+	  "Title": ""
+      },
+	  {
+	  "Name": "munchymunchy",
+	  "Image": "assets/lolly-tick-zoomed",
+	  "ShowTitle": false,
+	  "Title": ""
+      }
+      ],
+      "SupportedInMultiActions": true,
+      "Controllers": [
+	"Keypad"
+      ],
+      "Tooltip": "How many BMAP3 got right (0 or 1)",
       "UserTitleEnabled": true
   }      
   ],
@@ -57,47 +266,5 @@
     "CategoryIcon": "assets/category_icon",
     "CodePathMac": "run.sh",
     "CodePathWin": "run.bat",
-    "URL": "https://github.com/solresol/superwelch/demo",
-    "Profiles": [
-	{
-	"Name": "WNBN",
-	"DeviceType": 2,
-	"Readonly": true
-    },
-	{
-	"Name": "WNBY",
-	"DeviceType": 2,
-	"Readonly": true
-    },
-	{
-	"Name": "WYBN",
-	"DeviceType": 2,
-	"Readonly": true
-    },
-	{
-	"Name": "WYBY",
-	"DeviceType": 2,
-	"Readonly": true
-    },
-	{
-	"Name": "WCBC",
-	"DeviceType": 2,
-	"Readonly": true
-    },
-	{
-	"Name": "WCBW",
-	"DeviceType": 2,
-	"Readonly": true
-    },
-	{
-	"Name": "WWBC",
-	"DeviceType": 2,
-	"Readonly": true
-    },
-	{
-	"Name": "WWBw",
-	"DeviceType": 2,
-	"Readonly": true
-    }	
-    ]
+    "URL": "https://github.com/solresol/superwelch/demo"
 }
