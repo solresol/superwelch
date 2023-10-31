@@ -55,14 +55,15 @@ raw_data_dataframe = pandas.read_sql(f"select {select_args}, was_successful from
 
 custom_transformer = differencer.ControlExperimentalDifferencer(control_group_size, experiment_group_size)
 poly_features = PolynomialFeatures(degree=2)
-log_reg = LogisticRegression(C=1e6, solver='lbfgs', max_iter=1000)
-calibrated_clf = CalibratedClassifierCV(base_estimator=log_reg, method='sigmoid')
+log_reg = LogisticRegression(penalty=None, solver='lbfgs', max_iter=1000, class_weight='balanced')
+#calibrated_clf = CalibratedClassifierCV(base_estimator=log_reg, method='sigmoid')
 
 # Constructing the pipeline
 pipeline = Pipeline([
     ('feature_difference', custom_transformer),
     ('poly_features', poly_features),
-    ('classifier', calibrated_clf)
+    #('classifier', calibrated_clf)
+    ('classifier', log_reg)
 ])
 
 
