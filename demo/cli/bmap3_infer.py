@@ -51,6 +51,8 @@ cursor.execute(f"""create table if not exists real_experiments (
   experiment_evaluated timestamp default current_timestamp,
   welch_ttest_result bool,
   welch_ttest_pvalue float,
+  bmap1_result bool,
+  bmap1_pvalue float,
   bmap3_result bool,
   bmap3_pvalue float,
   ground_truth bool
@@ -76,14 +78,14 @@ else:
 
 all_input_consumed = False
 
-cursor.execute("select real_experiment_id from current_experiment")
-row = cursor.fetchone()
-if row is None:
-    current_experiment_id = None
-else:
-    current_experiment_id = row[0]
-
 while True:
+    cursor.execute("select real_experiment_id from current_experiment")
+    row = cursor.fetchone()
+    if row is None:
+        current_experiment_id = None
+    else:
+        current_experiment_id = row[0]
+
     if all_input_consumed:
         break
     try:
